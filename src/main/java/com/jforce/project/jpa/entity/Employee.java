@@ -1,44 +1,33 @@
 package com.jforce.project.jpa.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * @author Iraz Şanlı
  */
 @Data
-// Employee sınıfının veri tabanında kaydedilebilir bir öge (entity) olduğuna işaret ettik.
-@Entity
-// Verilerin kaydedileceği tabloyu belirttik. Email ve telefon formatı kısıtları getirdik.
-@Table(name = "employee",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"phone", "email"})})
-public class Employee implements Serializable {
-    // "id" kolonunu anahtar kolon olarak belirledik.
+@Entity // Employee sınıfının veri tabanında kaydedilebilir bir öge (entity) dir.
+@Table(name = "employee", // Çalışanlara ait veriler "employee" tablosuna kaydedilecektir. Burada "id, telefon, mail adresi" değerleri tektir.
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"employee_id", "email", "phone"})})
+public class Employee implements Serializable { // Serileştirme, tablodaki değerlerin veri tipleri ile birlikte kaydedilmesini sağlayacaktır.
     @Id
-    // Her yeni kayıt için id'nin otomatik arttırılmasını sağladık.
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "employee_id", unique = true, nullable = false)
-    private long employeeId;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) // Her yeni kayıt için "id" otomatik olarak arttırılır.
+    @Column(name = "employee_id", nullable = false)
+    private Long employeeId;
 
-    @Column(name = "email", unique = true, nullable = false, length = 64)
+    @Column(name = "email", nullable = false, length = 64)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 60)
+    @Column(name = "password", nullable = false, length = 64)
     private String password;
 
-    @Column(name = "firstname", nullable = false, length = 64)
-    private String firstname;
-
-    @Column(name = "minit", length = 64)
-    private String minit;
-
-    @Column(name = "lastname", nullable = false, length = 64)
-    private String lastname;
+    @Column(name = "fullname", nullable = false, length = 64)
+    private String fullname;
 
     @Column(name = "phone", nullable = false)
     private String phone;
@@ -46,25 +35,36 @@ public class Employee implements Serializable {
     @Column(name = "department", nullable = false)
     private String department;
 
-    @ManyToOne
-    @JoinColumn(name="MANAGER_ID")
-    private Manager manager;
+    // Sistem kullanıcılarının farklı yetkileri olabilir.
+    @Column(name = "employee_role", nullable = false, columnDefinition = "bpchar")
+    @Enumerated(EnumType.STRING)
+    private EmployeeRole employeeRole;
 
-    @Column(name = "ROLE", nullable = false)
-    private String role;
+    // Çalışanın firmadaki görevinin aktif/pasif durumu tutulabilir.
+    @Column(name = "employee_status", nullable = false, columnDefinition = "bpchar")
+    @Enumerated(EnumType.STRING)
+    private EmployeeStatus employeeStatus;
 
-    @ManyToMany(mappedBy="employees")
-    private List<Project> projects = new ArrayList<Project>();
+    @Column(name = "created_at", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created_at;
 
-    @Type(type="yes_no")
-    @Column(name = "ENABLE", nullable = false)
-    private boolean enabled;
+    /*
+    @OneToMany // Çalışan bir gün için birden fazla iş kartı oluşturabilir.
+    @JoinColumn(name="card_id")
+    private Collection<DailyWorkCard> card = new ArrayList<DailyWorkCard>();
 
-    @Type(type="yes_no")
-    @Column(name = "EXPIRED", nullable = false)
-    private boolean expired;
 
+    // Çalışanlar ve ekipleri arasındaki ilişki gösterilmelidir.
+    // Bir çalışan birden fazla ekipte yer alabilir (M). Öte yandan bir ekipte de birden fazla çalışan bulunabilir (N).
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(name = "employees_teams",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id"))
+    private List<Team> teams;
+
+
+     */
     public Employee() {
-
     }
 }

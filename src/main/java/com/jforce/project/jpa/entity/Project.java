@@ -1,4 +1,55 @@
 package com.jforce.project.jpa.entity;
 
-public class Project {
+import lombok.Data;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * @author Iraz Şanlı
+ */
+@Data
+@Entity
+@Table(name = "project",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"project_id"})})
+public class Project implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "project_id", nullable = false)
+    private Long projectId;
+
+    @Column(name = "project_name", nullable = false, length = 64)
+    private String projectName;
+
+    /*
+    @Column(name = "project_status", nullable = false, columnDefinition = "bpchar")
+    @Enumerated(EnumType.STRING)
+    private ProjectStatus projectStatus;
+    */
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "start_date", nullable = false)
+    private Date startDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "end_date", nullable = false)
+    private Date endDate;
+
+    @Column(name = "client", length = 255)
+    private String client;
+
+    // Bir proje birden fazla kartta bulunabilir.
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk_project")
+    private Set<ProjectsOnCards> projectsOnCards;
+
+    // Bir proje için farklı alt ekipler kurulmaktadır.
+    @OneToMany(mappedBy = "project")
+    private Set<Team> teams;
+
+    public Project() {
+
+    }
 }
