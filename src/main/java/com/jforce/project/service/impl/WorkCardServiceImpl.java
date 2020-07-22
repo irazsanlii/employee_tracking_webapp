@@ -1,10 +1,8 @@
 package com.jforce.project.service.impl;
 
 import com.jforce.project.exception.GenericException;
-import com.jforce.project.exception.Throw;
 import com.jforce.project.jpa.entity.Employee;
-import com.jforce.project.model.CardModel;
-import com.jforce.project.service.AdminService;
+import com.jforce.project.model.DailyWorkCardModel;
 import com.jforce.project.service.WorkCardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +19,12 @@ public class WorkCardServiceImpl implements WorkCardService {
     private final Logger logger = LoggerFactory.getLogger(com.jforce.project.service.impl.AdminServiceImpl.class);
 
     @Override
-    public CardModel getDailyWorkCard(Date date, Employee employee) throws GenericException {
+    public DailyWorkCardModel getDailyWorkCard(Date date, Employee employee) throws GenericException {
         return null;
     }
 
     @Override
-    public List<CardModel> getMyCards() throws GenericException {
+    public List<DailyWorkCardModel> getMyCards() throws GenericException {
         return null;
     }
 

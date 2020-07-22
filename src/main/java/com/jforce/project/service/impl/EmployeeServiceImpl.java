@@ -7,9 +7,11 @@ import com.jforce.project.jpa.entity.DailyWorkCard;
 import com.jforce.project.jpa.entity.Employee;
 import com.jforce.project.jpa.repository.DailyWorkCardRepository;
 import com.jforce.project.jpa.repository.EmployeeRepository;
-import com.jforce.project.model.CardModel;
+import com.jforce.project.jpa.repository.ProjectRepository;
 import com.jforce.project.model.DailyWorkCardModel;
+import com.jforce.project.model.request.NewDailyWorkCard;
 import com.jforce.project.service.EmployeeService;
+import com.jforce.project.util.DateUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Autowired
     private DailyWorkCardRepository dailyWorkCardRepository;
@@ -71,15 +76,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public CardModel addDailyWorkCard(DailyWorkCardModel card) throws GenericException {
+    public DailyWorkCardModel addDailyWorkCard(NewDailyWorkCard card
+                                               //, Long employeeId
+    ) throws GenericException {
         logger.info("New card will be added.");
+
         try {
             DailyWorkCard entity = new DailyWorkCard();
-            entity.setCreatedAt(card.getCreated_at());
+            //entity.setCardOwner(employeeId);
+            entity.setProjects(card.getProjectList());
+            entity.setStartTime(card.getStartTime());
+            entity.setEndTime(card.getEndTime());
+            entity.setDate(card.getDate());
 
             entity = dailyWorkCardRepository.save(entity);
 
-            return modelMapper.map(entity, CardModel.class);
+            return modelMapper.map(entity, DailyWorkCardModel.class);
         } catch (Exception e) {
             Throw.throwException(e);
             return null;

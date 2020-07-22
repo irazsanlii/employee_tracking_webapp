@@ -18,9 +18,9 @@ import java.util.Date;
 @Setter
 @ToString
 public class ProjectModel {
+    private Long id;
     private String projectName;
     private Date startDate;
     private Date endDate;
     private String client;
-
 }

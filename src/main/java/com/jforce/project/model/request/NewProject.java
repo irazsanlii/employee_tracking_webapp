@@ -1,4 +1,4 @@
-package com.jforce.project.model;
+package com.jforce.project.model.request;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class NewProjectModel {
+public class NewProject {
     private String projectName;
     private Date startDate;
     private Date endDate;

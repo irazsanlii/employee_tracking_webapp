@@ -42,12 +42,15 @@ public class Project implements Serializable {
     private String client;
 
     // Bir proje birden fazla kartta bulunabilir.
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk_project")
-    private Set<ProjectsOnCards> projectsOnCards;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(name = "added_projects",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "card_id"))
+    private List<DailyWorkCard> projectsOnCards;
 
     // Bir proje için farklı alt ekipler kurulmaktadır.
     @OneToMany(mappedBy = "project")
-    private Set<Team> teams;
+    private List<Team> teams;
 
     public Project() {
 

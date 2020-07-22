@@ -2,12 +2,13 @@ package com.jforce.project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
 
 @SpringBootApplication
-public class EmployeeTrackingApplication {
+public class EmployeeTrackingApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(EmployeeTrackingApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(EmployeeTrackingApplication.class, args);
+    }
 }

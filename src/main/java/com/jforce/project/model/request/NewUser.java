@@ -1,4 +1,4 @@
-package com.jforce.project.model;
+package com.jforce.project.model.request;
 
 import com.jforce.project.jpa.entity.EmployeeRole;
 import com.jforce.project.jpa.entity.EmployeeStatus;
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class NewUserModel {
+public class NewUser {
     private String email;
     private String password;
     private String fullname;

@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Iraz Şanlı
@@ -20,33 +20,25 @@ public class DailyWorkCard implements Serializable {
     @Column(name = "card_id", nullable = false)
     private Long cardId;
 
-    /*
-    @ManyToOne // Bir çalışan bir gün için birden fazla iş kartı oluşturabilir.
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
-    */
-    /*
-    @Column(name = "card_owner", nullable = false) // Kart sahibinin serviste çağırılması için değişken tipi hatasını kontrol altına aldık.
+    // Kart sahibinin serviste çağırılması için değişken tipi hatasını kontrol altına aldık, çalışan id'si ile çağırılacak.
+    @Column(name = "card_owner", nullable = false)
     private Long cardOwner;
-    */
 
-    /*
     @Column(name = "start_time", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     private Date startTime;
 
     @Column(name = "end_time", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     private Date endTime;
-     */
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private Date date;
 
-    // Bir kartta birden fazla proje bulunabilir.
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk_card", cascade=CascadeType.ALL)
-    private Set<ProjectsOnCards> projectsOnCards;
+    // Bir kart birden fazla proje içerebilir.
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "projectsOnCards")
+    private List<Project> projects;
 
     /*
     @Column(name = "modified_at", nullable = false)

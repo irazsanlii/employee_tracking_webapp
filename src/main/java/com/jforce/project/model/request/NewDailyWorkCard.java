@@ -1,5 +1,8 @@
-package com.jforce.project.model;
+package com.jforce.project.model.request;
 
+import com.jforce.project.jpa.entity.Project;
+import com.jforce.project.model.EmployeeModel;
+import com.jforce.project.model.ProjectModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,11 +16,11 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class DailyWorkCardModel {
-    private Long id;
-    private EmployeeModel employee;
+public class NewDailyWorkCard {
     private Date startTime;
     private Date endTime;
     private Date date;
-    private List<ProjectModel> addedProjects;
+    private List<Project> projectList;
 }
+
+

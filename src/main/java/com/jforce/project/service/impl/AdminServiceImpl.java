@@ -10,6 +10,8 @@ import com.jforce.project.jpa.repository.EmployeeRepository;
 import com.jforce.project.jpa.repository.ProjectRepository;
 import com.jforce.project.jpa.repository.TeamRepository;
 import com.jforce.project.model.*;
+import com.jforce.project.model.request.NewProject;
+import com.jforce.project.model.request.NewUser;
 import com.jforce.project.service.AdminService;
 import com.jforce.project.util.DateUtils;
 import org.modelmapper.ModelMapper;
@@ -38,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
     private ModelMapper modelMapper;
 
     @Override
-    public LoginModel addUser(NewUserModel user) throws GenericException {
+    public EmployeeModel addUser(NewUser user) throws GenericException {
         logger.info("New user will be added.");
         try {
             Employee entity = new Employee();
@@ -54,7 +56,7 @@ public class AdminServiceImpl implements AdminService {
 
             entity = employeeRepository.save(entity);
 
-            return modelMapper.map(entity, LoginModel.class);
+            return modelMapper.map(entity, EmployeeModel.class);
         } catch (Exception e) {
             Throw.throwException(e);
             return null;
@@ -62,7 +64,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ProjectModel addProject(NewProjectModel project) throws GenericException {
+    public ProjectModel addProject(NewProject project) throws GenericException {
         logger.info("New project will be added.");
         try {
             Project entity = new Project();

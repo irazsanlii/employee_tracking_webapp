@@ -6,6 +6,8 @@ import com.jforce.project.controller.util.Endpoint;
 import com.jforce.project.exception.GenericException;
 import com.jforce.project.jpa.repository.EmployeeRepository;
 import com.jforce.project.model.*;
+import com.jforce.project.model.request.NewProject;
+import com.jforce.project.model.request.NewUser;
 import com.jforce.project.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,10 +46,10 @@ public class AdminController {
     @RequestMapping(value = Endpoint.Admin.ADD_USER, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ResponseHolder<LoginModel> addUser(@Valid @RequestBody NewUserModel request)
+    public ResponseHolder<EmployeeModel> addUser(@Valid @RequestBody NewUser request)
             throws GenericException {
         logger.info("Add user");
-        ResponseHolder<LoginModel> response = new ResponseHolder<>();
+        ResponseHolder<EmployeeModel> response = new ResponseHolder<>();
         response.setResponseData(adminService.addUser(request));
         return response;
     }
@@ -56,7 +58,7 @@ public class AdminController {
     @RequestMapping(value = Endpoint.Admin.ADD_PROJECT, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ResponseHolder<ProjectModel> addProject(@Valid @RequestBody NewProjectModel request)
+    public ResponseHolder<ProjectModel> addProject(@Valid @RequestBody NewProject request)
             throws GenericException {
         logger.info("Add project");
         ResponseHolder<ProjectModel> response = new ResponseHolder<>();

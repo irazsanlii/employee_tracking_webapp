@@ -10,7 +10,8 @@ import lombok.ToString;
 /**
  * @author Iraz Şanlı
  */
-public class LoginModel {
+public class EmployeeModel {
+    private Long id;
     private String email;
     private String password;
 }

@@ -1,13 +1,9 @@
 package com.jforce.project.service;
 
 import com.jforce.project.exception.GenericException;
-import com.jforce.project.jpa.entity.DailyWorkCard;
 import com.jforce.project.jpa.entity.Employee;
-import com.jforce.project.model.CardModel;
 import com.jforce.project.model.DailyWorkCardModel;
-import com.jforce.project.model.TeamModel;
-
-import java.util.List;
+import com.jforce.project.model.request.NewDailyWorkCard;
 
 /**
  * @author Iraz Şanlı
@@ -19,6 +15,8 @@ public interface EmployeeService {
 
     public String resetPasswordFor(Long employeeId) throws GenericException;
 
-    CardModel addDailyWorkCard(DailyWorkCardModel card) throws GenericException;
+    DailyWorkCardModel addDailyWorkCard(NewDailyWorkCard card
+                                        //, Long employeeId
+    ) throws GenericException;
 
 }

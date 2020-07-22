@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Iraz Şanlı
@@ -28,15 +26,11 @@ public class Team implements Serializable {
     @JoinColumn(name = "project_id")
     private Project project;
 
-
     /*
     // Bir takımda birden fazla çalışan bulunabilir (M). Bir çalışan birden fazla takımda da yer alabilir (N).
     @ManyToMany(mappedBy = "teams")
     private List<Employee> employees;
-
-
-
-     */
+    */
 
     public Team() {
 
